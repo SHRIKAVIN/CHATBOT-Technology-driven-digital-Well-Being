@@ -1,108 +1,64 @@
-import { useState, useRef, useEffect } from "react";
-import ChatbotIcon from "./Components/Chatboticon";
-import ChatForm from "./Components/Chatform";
-import ChatMessage from "./Components/ChatMessage";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { 
+    faUserCircle, 
+    faSearch, 
+    faArrowRight, 
+    faRobot 
+} from "@fortawesome/free-solid-svg-icons";
+import "./home.css"; // Updated CSS file
 
-const App = () => {
-  const [chatHistory, setChatHistory] = useState([]);
-  const chatContainerRef = useRef(null); // 🔥 Reference for chat container
-
-  // Function to check if user is at the bottom
-  const isUserAtBottom = () => {
-    const chatContainer = chatContainerRef.current;
-    return chatContainer && chatContainer.scrollHeight - chatContainer.scrollTop <= chatContainer.clientHeight + 10;
-  };
-
-  // Auto-scroll when new messages arrive if the user is at the bottom
-  useEffect(() => {
-    if (isUserAtBottom()) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [chatHistory]);
-
-  const generateBotResponse = async (history, retries = 3, delay = 2000) => {
-    const updateHistory = (text) => {
-      setChatHistory((prev) => [
-        ...prev.filter((msg) => msg.text !== "Thinking..."),
-        { role: "model", text },
-      ]);
-    };
-
-    const formattedHistory = history.map(({ role, text }) => ({
-      role: role === "user" ? "user" : "model",
-      parts: [{ text }],
-    }));
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: formattedHistory }),
-    };
-
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        const response = await fetch(import.meta.env.VITE_API_URL, requestOptions);
-        const data = await response.json();
-
-        if (!response.ok) throw new Error(data.error?.message || "Something went wrong!");
-
-        const apiResponseText = data.candidates[0].content.parts[0].text
-          .replace(/\*\*(.*?)\*\*/g, "$1")
-          .trim();
-        updateHistory(apiResponseText);
-        return;
-
-      } catch (error) {
-        console.error(`Attempt ${attempt} failed:`, error.message);
-
-        if (error.message.includes("quota") || error.message.includes("exhausted")) {
-          updateHistory("API quota exceeded. Please try again later.");
-          return;
-        }
-
-        if (attempt < retries) {
-          await new Promise((resolve) => setTimeout(resolve, delay * attempt)); // Exponential backoff
-        } else {
-          updateHistory("Sorry, the chatbot service is temporarily unavailable.");
-        }
-      }
-    }
-  };
+const Home = () => {
+  const navigate = useNavigate();
 
   return (
-    <div className="container">
-      <div className="chatbot-popup">
-        {/* Chatbot Header */}
-        <div className="chat-header">
-          <div className="header-info">
-            <ChatbotIcon />
-            <h2 className="logo-text">Chatbot</h2>
+    <div className="home-container">
+      {/* Header */}
+      <header>
+        <div className="container">
+          <div className="logo">TECHSPIRE</div>
+          <nav>
+            <a href="#" onClick={() => navigate("/")}>Home</a>
+            <a href="#" onClick={() => navigate("/about")}>About</a>
+            <a href="#" onClick={() => navigate("/contact")}>Contact Us</a>
+          </nav>
+          <div className="right-section">
+            <div className="search-container">
+              <input 
+                className="search-input" 
+                placeholder="Search..." 
+                type="text" 
+              />
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+            </div>
+            <FontAwesomeIcon icon={faUserCircle} className="user-icon" />
           </div>
-          <button className="material-symbols-rounded">keyboard_arrow_down</button>
         </div>
+      </header>
 
-        {/* Chatbot Body */}
-        <div className="chat-body" ref={chatContainerRef}> {/* 🔥 Attach ref here */}
-          <div className="message bot-message">
-            <ChatbotIcon />
-            <p className="message-text">
-              Hey there 👋🏻 <br /> How can I help you today?
-            </p>
+      {/* Hero Section */}
+      <main className="main-content">
+        <h1>Revolutionizing Digital Well-Being</h1>
+        <p>Empowering technology for a smarter and healthier future.</p>
+        
+        <div className="card-container">
+          <div className="card" onClick={() => navigate("/camera")}>
+            <div className="card-title">Camera</div>
+            <FontAwesomeIcon icon={faArrowRight} className="card-icon" />
           </div>
-
-          {/* Render chat history */}
-          {chatHistory.map((chat, index) => (
-            <ChatMessage key={index} chat={chat} />
-          ))}
+          <div className="card" onClick={() => navigate("/proxy")}>
+            <div className="card-title">Proxy</div>
+            <FontAwesomeIcon icon={faArrowRight} className="card-icon" />
+          </div>
         </div>
+      </main>
 
-        {/* Chatbot Footer */}
-        <div className="chat-footer">
-          <ChatForm chatHistory={chatHistory} setChatHistory={setChatHistory} generateBotResponse={generateBotResponse} />
-        </div>
-      </div>
+      {/* Chatbot Icon */}
+      <footer className="chatbot-footer" onClick={() => navigate("/chatbot")}>
+        <FontAwesomeIcon icon={faRobot} className="chatbot-icon" />
+      </footer>
     </div>
   );
 };
 
-export default App;
+export default Home;

@@ -15,7 +15,7 @@ An interactive AI chatbot built using **React.js**, featuring a sleek UI, smooth
 
 ## **📂 Project Structure**  
 ```
-📦 Chatbot  
+📦 CHATBOT-Technology-driven-digital-Well-Being.git 
  ┣ 📂 src  
  ┃ ┣ 📜 App.jsx  
  ┃ ┣ 📜 Chatbot.jsx  
@@ -30,7 +30,7 @@ An interactive AI chatbot built using **React.js**, featuring a sleek UI, smooth
 1. **Clone the repository**  
    ```bash
    git clone https://github.com/SHRIKAVIN/CHATBOT-Technology-driven-digital-Well-Being.git
-   cd chatbot
+   cd CHATBOT-Technology-driven-digital-Well-Being
    ```  
 2. **Install dependencies**  
    ```bash

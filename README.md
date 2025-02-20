@@ -1,7 +1,3 @@
-Here’s a well-structured and engaging **README.md** for your chatbot project:  
-
----
-
 # **AI Chatbot**  
 An interactive AI chatbot built using **React.js**, featuring a sleek UI, smooth auto-scrolling, and real-time messaging.  
 
@@ -19,7 +15,7 @@ An interactive AI chatbot built using **React.js**, featuring a sleek UI, smooth
 
 ## **📂 Project Structure**  
 ```
-📦 AI-Chatbot  
+📦 Chatbot  
  ┣ 📂 src  
  ┃ ┣ 📜 App.jsx  
  ┃ ┣ 📜 Chatbot.jsx  
@@ -33,8 +29,8 @@ An interactive AI chatbot built using **React.js**, featuring a sleek UI, smooth
 ## **🔧 Installation & Setup**  
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your-username/ai-chatbot.git
-   cd ai-chatbot
+   git clone https://github.com/SHRIKAVIN/CHATBOT-Technology-driven-digital-Well-Being.git
+   cd chatbot
    ```  
 2. **Install dependencies**  
    ```bash
@@ -42,9 +38,9 @@ An interactive AI chatbot built using **React.js**, featuring a sleek UI, smooth
    ```  
 3. **Run the project**  
    ```bash
-   npm start
+   npm run dev
    ```  
-4. Open **http://localhost:3000/** in your browser  
+4. Open **http://localhost:5173/** in your browser  
 
 ## **🎨 UI Enhancements**  
 - Larger, more **accessible chat interface**  
@@ -56,13 +52,7 @@ An interactive AI chatbot built using **React.js**, featuring a sleek UI, smooth
 - **AI-powered responses** with GPT integration  
 - **User authentication** for personalized chat history  
 - **Dark mode** toggle for better usability  
-- **Voice input and speech synthesis**  
-
-## **🤝 Contributing**  
-1. Fork the repository  
-2. Create a new branch  
-3. Make your changes and commit  
-4. Open a pull request  
+- **Voice input and speech synthesis**   
 
 ## **💡 Inspiration**  
 This chatbot is designed to **enhance user engagement** while maintaining a lightweight and responsive experience. Ideal for **customer support, virtual assistants, and interactive learning**.  
